@@ -47,6 +47,7 @@ describe('LocationService', () => {
           useValue: {
             find: jest.fn(),
             exec: jest.fn(),
+            create: jest.fn(),
           },
         },
       ],
@@ -62,5 +63,18 @@ describe('LocationService', () => {
     } as any);
     const locations = await service.findAllLocations();
     expect(locations).toEqual(fakeLocations);
+  });
+
+  it('should create a new location', async () => {
+    const dummyLocation = fakeLocations[0];
+
+    jest
+      .spyOn(model, 'create')
+      .mockImplementationOnce(() => Promise.resolve(dummyLocation as any));
+
+    const createdLocation = await service.create(dummyLocation);
+
+    expect(createdLocation).toEqual(dummyLocation);
+    expect(createdLocation.description).toEqual(dummyLocation.description);
   });
 });
