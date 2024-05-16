@@ -109,6 +109,6 @@ describe('LocationController', () => {
 
     expect(createdLocation).toEqual(createLocationDto);
     expect(createdLocation.description).toEqual(createLocationDto.description);
-    expect(service.create).toHaveBeenCalledTimes(1);
+    expect(service.create).toHaveBeenCalledWith(fakeLocations[1]);
   });
 });

@@ -3,6 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Model } from 'mongoose';
 import { LocationService } from './location.service';
 import { Geolocation } from '../schemas/geolocation.schema';
+import { GetLocationByNearbyDto } from '../dto/get-location-by-nearby.dto';
 import { LocationStatusType } from '../types/LocationStatusType';
 
 describe('LocationService', () => {
@@ -39,7 +40,7 @@ describe('LocationService', () => {
     },
   ];
 
-  const fakeInputLocation = {
+  const fakeInputLocation: GetLocationByNearbyDto = {
     coordenates: {
       x: 20,
       y: 10,
@@ -76,7 +77,7 @@ describe('LocationService', () => {
   });
 
   it('should return locations by nearby', async () => {
-    const fakeLocationByNearbyStatus = [
+    const fakeLocationByNearbyStatus: LocationStatusType[] = [
       {
         'DESCRIPTION-1': 'closed',
       },
@@ -93,16 +94,14 @@ describe('LocationService', () => {
   });
 
   it('should create a new location', async () => {
-    const dummyLocation = fakeLocations[0];
-
     jest
       .spyOn(model, 'create')
-      .mockImplementationOnce(() => Promise.resolve(dummyLocation as any));
+      .mockImplementationOnce(() => Promise.resolve(fakeLocations[0] as any));
 
-    const createdLocation = await service.create(dummyLocation);
+    const createdLocation = await service.create(fakeLocations[0]);
 
-    expect(createdLocation).toEqual(dummyLocation);
-    expect(createdLocation.description).toEqual(dummyLocation.description);
+    expect(createdLocation).toEqual(fakeLocations[0]);
+    expect(createdLocation.description).toEqual(fakeLocations[0].description);
   });
 
   it('should filter locations by nearby', () => {
