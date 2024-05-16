@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { CoordenatesType } from '../types/CoordenatesType';
+import { CoordinatesType } from '../types/CoordinatesType';
 
 export type GeolocationDocument = HydratedDocument<Geolocation>;
 
@@ -16,7 +16,7 @@ export class Geolocation {
   closed: string;
 
   @Prop({ type: Object, required: true })
-  coordenates: CoordenatesType;
+  coordinates: CoordinatesType;
 }
 
 export const GeolocationSchema = SchemaFactory.createForClass(Geolocation);

@@ -17,11 +17,11 @@ export class LocationService {
     getLocationByNearbyDto: GetLocationByNearbyDto,
     locations: Geolocation[],
   ): Geolocation[] {
-    const { coordenates, mts } = getLocationByNearbyDto;
+    const { coordinates, mts } = getLocationByNearbyDto;
     return locations.filter(
       (location) =>
-        Math.abs(location.coordenates.x - coordenates.x) <= mts &&
-        Math.abs(location.coordenates.y - coordenates.y) <= mts,
+        Math.abs(location.coordinates.x - coordinates.x) <= mts &&
+        Math.abs(location.coordinates.y - coordinates.y) <= mts,
     );
   }
 

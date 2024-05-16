@@ -15,7 +15,7 @@ describe('LocationController', () => {
       description: 'DESCRIPTION-1',
       opened: '09:00',
       closed: '18:00',
-      coordenates: {
+      coordinates: {
         x: 10,
         y: 20,
       },
@@ -24,7 +24,7 @@ describe('LocationController', () => {
       description: 'DESCRIPTION-2',
       opened: '10:00',
       closed: '22:00',
-      coordenates: {
+      coordinates: {
         x: 15,
         y: 30,
       },
@@ -33,7 +33,7 @@ describe('LocationController', () => {
       description: 'DESCRIPTION-3',
       opened: '',
       closed: '',
-      coordenates: {
+      coordinates: {
         x: 25,
         y: 12,
       },
@@ -53,7 +53,7 @@ describe('LocationController', () => {
     description: 'NEW-LOCATION',
     opened: '09:00',
     closed: '21:00',
-    coordenates: {
+    coordinates: {
       x: 20,
       y: 30,
     },
@@ -90,7 +90,7 @@ describe('LocationController', () => {
 
   it('should return locations by nearby given a user input', async () => {
     const fakeInputLocation: GetLocationByNearbyDto = {
-      coordenates: {
+      coordinates: {
         x: 20,
         y: 10,
       },

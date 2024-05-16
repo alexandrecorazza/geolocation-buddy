@@ -1,8 +1,8 @@
-import { CoordenatesType } from './CoordenatesType';
+import { CoordinatesType } from './CoordinatesType';
 
 export type LocationType = {
   description: string;
   opened?: string;
   closed?: string;
-  coordenates: CoordenatesType;
+  coordinates: CoordinatesType;
 };

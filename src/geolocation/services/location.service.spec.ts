@@ -15,7 +15,7 @@ describe('LocationService', () => {
       description: 'DESCRIPTION-1',
       opened: '09:00',
       closed: '18:00',
-      coordenates: {
+      coordinates: {
         x: 10,
         y: 20,
       },
@@ -24,7 +24,7 @@ describe('LocationService', () => {
       description: 'DESCRIPTION-2',
       opened: '10:00',
       closed: '22:00',
-      coordenates: {
+      coordinates: {
         x: 15,
         y: 30,
       },
@@ -33,7 +33,7 @@ describe('LocationService', () => {
       description: 'DESCRIPTION-3',
       opened: '',
       closed: '',
-      coordenates: {
+      coordinates: {
         x: 25,
         y: 12,
       },
@@ -41,7 +41,7 @@ describe('LocationService', () => {
   ];
 
   const fakeInputLocation: GetLocationByNearbyDto = {
-    coordenates: {
+    coordinates: {
       x: 20,
       y: 10,
     },
@@ -110,7 +110,7 @@ describe('LocationService', () => {
         description: 'DESCRIPTION-1',
         opened: '09:00',
         closed: '18:00',
-        coordenates: {
+        coordinates: {
           x: 10,
           y: 20,
         },
@@ -119,7 +119,7 @@ describe('LocationService', () => {
         description: 'DESCRIPTION-3',
         opened: '',
         closed: '',
-        coordenates: {
+        coordinates: {
           x: 25,
           y: 12,
         },
