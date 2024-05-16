@@ -1,73 +1,85 @@
+<h1 align="center">
+    Geolocation buddy
+</h1>
+
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+  <a href="#bookmark-sobre">Sobre o projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#rocket-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#%EF%B8%8F-configuração">Configuração do projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#round_pushpin-rotas">Rotas</a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## :bookmark: Sobre
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+O **Geolocation buddy** é um serviço de localização que permite auxiliar pessoas na localização de pontos de interesse, onde é possível cadastrar novos pontos, listar os pontos cadastrados e listar pontos por proximidade. Os pontos de interesse possui coordenadas X e Y de onde estão localizados, assim como horário de abertura e fechamento se houver. Para pontos de interesse por proximidade é necessário informar as coordenadas X e Y desejadas, distância em metros e horário, dessa forma o serviço é capaz de exibir a lista de locais em funcionamento por proximidade.
 
-## Description
+O banco de dados escolhido e utilizado foi o MongoDB. O serviço precisa rodar paralelamente junto ao banco para funcionar. Foi utilizado docker para rodar uma imagem do MongoDB para que não seja necessário a instalação do banco de dados na máquina local.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## :rocket: Tecnologias
 
-## Installation
+- [Nest.js](https://nestjs.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [Docker](https://www.docker.com/) e [Docker Compose](https://docs.docker.com/compose/)
 
-```bash
-$ npm install
-```
 
-## Running the app
+## ⚙️ Configuração
 
-```bash
-# development
-$ npm run start
+- ### **Pré-requisitos**
 
-# watch mode
-$ npm run start:dev
+  - É **necessário** ter o **[Node.js](https://nodejs.org/en/learn/getting-started/how-to-install-nodejs)** instalado no computador.
+  - É **necessário** ter o **[Docker](https://docs.docker.com/get-docker/)** instalado no computador.
+    
+- ### Executando o serviço
 
-# production mode
-$ npm run start:prod
-```
+  ```bash
+  # Abra um terminal e copie este repositório com o comando
+  $ git clone https://github.com/alexandrecorazza/geolocation-buddy.git
 
-## Test
+  # Entre no diretório onde o projeto foi clonado
+  $ cd geolocation-buddy/
 
-```bash
-# unit tests
-$ npm run test
+  # Instale as dependências
+  $ npm install
+    
+  # Crie um arquivo .env no diretório raiz do projeto
+  # Copie a variavel do arquivo .env.example e cole no .env. Como sugestão você pode substituir '/test' por '/geolocation'
 
-# e2e tests
-$ npm run test:e2e
+  # Abra outro terminal e suba a imagem do MongoDB via docker compose
+  $ docker compose up
 
-# test coverage
-$ npm run test:cov
-```
+  # Execute o serviço
+  $ npm start
+  ```
+- ### Executando os tests
+  `npm run test`
 
-## Support
+## :round_pushpin: Rotas
+- ### GET - findAll
+  ```bash
+  http://localhost:3000/location/findAll
+  ```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- ### POST - create
+  ```bash
+  http://localhost:3000/location/create
 
-## Stay in touch
+  {
+    "description": "Shopping Iguatemi",
+    "opened": "10:00",
+    "closed": "22:00",
+    "coordinates": {
+        "x": 20,
+        "y": 30
+    }
+  }
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+  ```
 
-## License
+- ### GET - findByNearby
+  ```bash
+  http://localhost:3000/location/findByNearby?x=20&y=10&mts=10&time=19:00
+  
+  # Onde x e y são as coordenadas desejadas, mts é a distância e time é a hora
+  ```
 
-Nest is [MIT licensed](LICENSE).
+<br>
