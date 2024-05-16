@@ -9,7 +9,7 @@ import { LocationStatusType } from '../types/LocationStatusType';
 export class LocationController {
   constructor(private readonly locationService: LocationService) {}
 
-  @Get()
+  @Get('/findAll')
   async findAllLocations(): Promise<Geolocation[]> {
     return this.locationService.findAllLocations();
   }
@@ -21,7 +21,7 @@ export class LocationController {
     return this.locationService.findByNearby(getLocationByNearby);
   }
 
-  @Post()
+  @Post('/create')
   async create(
     @Body() createLocationDto: CreateLocationDto,
   ): Promise<Geolocation> {
