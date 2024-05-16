@@ -1,8 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { LocationController } from './location.controller';
 import { LocationService } from '../services/location.service';
-import { Geolocation } from '../schemas/geolocation.schema';
 import { CreateLocationDto } from '../dto/create-location.dto';
+import { Geolocation } from '../schemas/geolocation.schema';
+import { GetLocationByNearbyDto } from '../dto/get-location-by-nearby.dto';
+import { LocationStatusType } from '../types/LocationStatusType';
 
 describe('LocationController', () => {
   let controller: LocationController;
@@ -38,6 +40,15 @@ describe('LocationController', () => {
     },
   ];
 
+  const fakeLocationByNearbyStatus: LocationStatusType[] = [
+    {
+      'DESCRIPTION-1': 'closed',
+    },
+    {
+      'DESCRIPTION-3': 'closed',
+    },
+  ];
+
   const createLocationDto: CreateLocationDto = {
     description: 'NEW-LOCATION',
     opened: '09:00',
@@ -56,6 +67,9 @@ describe('LocationController', () => {
           provide: LocationService,
           useValue: {
             findAllLocations: jest.fn().mockResolvedValue(fakeLocations),
+            findByNearby: jest
+              .fn()
+              .mockResolvedValue(fakeLocationByNearbyStatus),
             create: jest.fn().mockResolvedValue(createLocationDto),
           },
         },
@@ -72,6 +86,22 @@ describe('LocationController', () => {
     expect(locations).toEqual(fakeLocations);
     expect(locations[0]).toEqual(fakeLocations[0]);
     expect(service.findAllLocations).toHaveBeenCalledTimes(1);
+  });
+
+  it('should return locations by nearby given a user input', async () => {
+    const fakeInputLocation: GetLocationByNearbyDto = {
+      coordenates: {
+        x: 20,
+        y: 10,
+      },
+      mts: 10,
+      time: '19:00',
+    };
+
+    const locationsByNearby = await controller.findByNearby(fakeInputLocation);
+
+    expect(locationsByNearby).toEqual(fakeLocationByNearbyStatus);
+    expect(service.findByNearby).toHaveBeenCalledWith(fakeInputLocation);
   });
 
   it('should create a new location', async () => {
